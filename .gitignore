@@ -7,6 +7,11 @@ pnpm-lock.yaml
 # build output
 dist/
 build/
+out/
+storybook-static/
+
+# type-checker output
+*.tsbuildinfo
 
 # local env files
 .env
@@ -25,6 +30,7 @@ Thumbs.db
 
 # coverage reports
 coverage/
+*.lcov
 
 # debug logs
 npm-debug.log*
@@ -35,15 +41,20 @@ pnpm-debug.log*
 # cache
 .cache/
 .next/
-out/
-*.tsbuildinfo
+*.cache/
+*.tmp
 
 # eslint / prettier cache
 .eslintcache
 .prettier-cache/
 
-# storybook build output
-storybook-static/
-
-# test output
+# jest / vitest cache & output
+.jest/
+.vitest/
 junit.xml
+
+# misc
+*.log
+*.pid
+*.seed
+*.tgz

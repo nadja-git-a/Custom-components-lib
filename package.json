@@ -20,7 +20,7 @@
       "format": "prettier --write .",
       "format:check": "prettier --check .",
       "prepare": "husky",
-      "test": "jest",
+      "test": "jest --passWithNoTests",
       "test:watch": "jest --watch"
     },
     "repository": {

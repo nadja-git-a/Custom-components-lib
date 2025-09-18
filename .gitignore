@@ -58,3 +58,8 @@ junit.xml
 *.pid
 *.seed
 *.tgz
+
+*storybook.log
+
+# Ignore Storybook 
+src/stories

@@ -5,7 +5,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export default {
-  entry: "./src/index.tsx",
+  entry: "./src/index.ts",
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "index.js",
@@ -21,14 +21,11 @@ export default {
         test: /\.module\.css$/i,
         use: [
           "style-loader",
-          {
-            loader: "css-loader",
-            options: { modules: { localIdentName: "[name]__[local]__[hash:base64:5]" } }
-          }
+          { loader: "css-loader", options: { modules: { localIdentName: "[name]__[local]__[hash:base64:5]" } } }
         ]
       },
       { test: /\.css$/i, exclude: /\.module\.css$/i, use: ["style-loader", "css-loader"] },
-      { test: /\.(png|jpg|jpeg|gif|svg)$/i, type: "asset/resource" }
+      { test: /\.(png|jpe?g|gif|svg)$/i, type: "asset/resource" }
     ]
   },
   devtool: "source-map"

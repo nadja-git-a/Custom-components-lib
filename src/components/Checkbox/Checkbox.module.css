@@ -1,0 +1,107 @@
+.root {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font: inherit;
+  color: var(--color-darker);
+  user-select: none;
+
+  &:hover .label::before {
+    border-color: var(--color-dark);
+  }
+
+  &:active .label::before {
+    background: var(--color-lighter);
+  }
+}
+
+.input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  pointer-events: none;
+
+  &:focus-visible + .label::before {
+    border-color: var(--color);
+    box-shadow: var(--focus-ring);
+  }
+
+  &:checked + .label::before {
+    background: var(--color);
+    border-color: var(--color);
+  }
+  &:checked + .label::after {
+    opacity: 1;
+  }
+
+  &:indeterminate + .label::before {
+    background: var(--color);
+    border-color: var(--color);
+  }
+  &:indeterminate + .label::after {
+    left: 4px;
+    top: 8px;
+    width: 10px;
+    height: 2px;
+    border: none;
+    background: #fff;
+    opacity: 1;
+  }
+
+  &:disabled + .label {
+    color: var(--color-neutral);
+    cursor: not-allowed;
+  }
+  &:disabled + .label::before {
+    background: var(--color-lighter);
+    border-color: var(--color-light);
+    box-shadow: none;
+  }
+
+  &[aria-invalid='true'] + .label::before {
+    border-color: var(--color-error);
+    box-shadow: 0 0 0 2px rgba(210, 0, 28, 0.15);
+  }
+  &[aria-invalid='true']:focus-visible + .label::before {
+    box-shadow: 0 0 0 2px rgba(210, 0, 28, 0.3);
+  }
+}
+
+.label {
+  position: relative;
+  padding-left: 26px;
+  line-height: 20px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 18px;
+    height: 18px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-neutral);
+    background: #fff;
+    transition:
+      border-color 0.15s ease,
+      background-color 0.15s ease,
+      box-shadow 0.15s ease;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 6px;
+    width: 8px;
+    height: 4px;
+    border-left: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform: rotate(-45deg);
+    opacity: 0;
+    transition: opacity 0.1s ease;
+  }
+}

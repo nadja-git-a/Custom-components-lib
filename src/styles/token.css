@@ -1,5 +1,19 @@
 :root {
-  --radius: 6px;
-  --primary: #1976d2;
-  --secondary: #e0e0e0;
+  --color: rgb(25, 118, 210);
+  --color-light: rgb(140, 197, 254);
+  --color-lighter: rgb(206, 230, 255);
+  --color-dark: rgb(18, 104, 191);
+  --color-darker: rgb(18, 78, 137);
+  --color-error: rgb(210, 0, 28);
+  --color-neutral: rgb(111, 111, 111);
+  --color-base: rgb(255, 255, 255);
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+
+  --focus-ring: 0 0 0 1px rgb(0, 87, 174);
+
+  --font: sans-serif;
+  font-family: var(--font);
 }

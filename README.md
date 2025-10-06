@@ -83,14 +83,14 @@ Inherits all props from `SelectHTMLAttributes<HTMLSelectElement>`.
 ### **Checkbox**
 
 ```tsx
-<Checkbox defaultChecked>Label</Checkbox>
+<Checkbox checked={true}>Label</Checkbox>
 ```
 
 **Props**
 
 Inherits all props from `InputHTMLAttributes<HTMLInputElement>` (except `type`).
 `children?: ReactNode` — label or content rendered next to the checkbox.
-Supports both **controlled** (`checked` + `onChange`) and **uncontrolled** (`defaultChecked`) modes.
+Supports both **controlled** (`checked` + `onChange`) and **uncontrolled** modes.
 
 ---
 

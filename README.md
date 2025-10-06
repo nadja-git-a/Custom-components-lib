@@ -4,8 +4,13 @@ A lightweight **React UI library** built with **TypeScript** and **CSS Modules**
 Includes reusable components: **Button, TextField, Select, Checkbox, Switch, and Modal**.
 
 ---
+## Task
 
-## Installation
+[Link to task](https://drive.google.com/file/d/1C148FRnWfXVoRDslDWcYac3bEhebdIAV/view)
+
+---
+
+## How to run the app
 
 ```bash
 npm i my-components-lib-inno-roadmap-nadia

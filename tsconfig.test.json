@@ -1,8 +1,14 @@
 {
-    "extends": "./tsconfig.json",
-    "compilerOptions": {
-      "types": ["jest", "@testing-library/jest-dom"]
-    },
-    "include": ["src/**/*", "test/**/*", "test/setupTests.ts"]
-  }
-  
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "declaration": false,
+    "emitDeclarationOnly": false,
+    "rootDir": ".",
+    "types": ["jest", "@testing-library/jest-dom"]
+  },
+  "include": [
+    "test/**/*",
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx"
+  ]
+}

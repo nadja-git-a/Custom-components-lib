@@ -1,14 +1,9 @@
-import type { Preview } from '@storybook/react-webpack5'
+import '../src/styles/token.css';
 
-const preview: Preview = {
+const preview = {
   parameters: {
-    controls: {
-      matchers: {
-       color: /(background|color)$/i,
-       date: /Date$/i,
-      },
-    },
+    actions: { argTypesRegex: '^on[A-Z].*' },
+    controls: { matchers: { color: /(background|color)$/i, date: /Date$/i } },
   },
 };
-
 export default preview;

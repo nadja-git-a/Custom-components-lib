@@ -1,0 +1,15 @@
+.root {
+  font-family: sans-serif;
+  width: 10rem;
+  background: var(--color-base);
+  border-color: var(--color);
+  color: var(--color-darker);
+  border-radius: 8px;
+  padding: 16px;
+  min-width: 300px;
+  box-shadow: 0 4px 12px var(--color-darker);
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}

@@ -1,25 +1,30 @@
-import { InputHTMLAttributes } from 'react';
+import { forwardRef, InputHTMLAttributes, ReactNode } from 'react';
 
 import style from './TextField.module.css';
+import HelperText from '../HelperText/HelperText';
+
+type Variant = 'text' | 'contained' | 'outlined';
 
 interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
-  helperText: string;
   error?: boolean;
+  variant?: Variant;
+  children?: ReactNode;
 }
 
-export default function TextField({
-  error = false,
-  helperText,
-  className,
-  ...rest
-}: TextFieldProps) {
-  const classes = [style.root, className, error ? style.error : null].filter(Boolean).join(' ');
-  return (
-    <div>
-      {helperText && (
-        <span className={error ? style.error : style.helper}>{error ? 'Error' : helperText}</span>
-      )}
-      <input className={classes} aria-invalid={error || undefined} {...rest} />
-    </div>
-  );
-}
+const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
+  ({ error = false, variant = 'outlined', children, className, ...rest }, ref) => {
+    const classes = [style.root, style[variant], className, error ? style.error : null]
+      .filter(Boolean)
+      .join(' ');
+    return (
+      <div>
+        <HelperText text={children}></HelperText>
+        <input ref={ref} className={classes} aria-invalid={error || undefined} {...rest} />
+      </div>
+    );
+  },
+);
+
+TextField.displayName = 'TextField';
+
+export default TextField;

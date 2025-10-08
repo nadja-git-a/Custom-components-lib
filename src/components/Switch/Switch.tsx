@@ -1,32 +1,50 @@
-import type { ChangeEventHandler, InputHTMLAttributes, ReactNode } from 'react';
+import {
+  type ChangeEventHandler,
+  forwardRef,
+  type InputHTMLAttributes,
+  type ReactNode,
+} from 'react';
 
 import style from './Switch.module.css';
+import HelperText from '../HelperText/HelperText';
 
 interface SwitchProps
   extends Omit<
     InputHTMLAttributes<HTMLInputElement>,
     'type' | 'checked' | 'onChange' | 'disabled'
   > {
-  checked: boolean;
-  onChange: ChangeEventHandler<HTMLInputElement>;
+  checked?: boolean;
+  defaultChecked?: boolean;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
   disabled?: boolean;
   children?: ReactNode;
   className?: string;
 }
 
-export default function Switch({
-  checked = false,
-  onChange,
-  disabled = false,
-  className,
-  children,
-  ...rest
-}: SwitchProps) {
-  const classes = [style.root, className].join(' ');
-  return (
-    <label className={classes}>
-      <input type="checkbox" checked={checked} onChange={onChange} disabled={disabled} {...rest} />
-      <span>{children}</span>
-    </label>
-  );
-}
+const Switch = forwardRef<HTMLInputElement, SwitchProps>(
+  (
+    { checked, defaultChecked = false, onChange, disabled = false, className, children, ...rest },
+    ref,
+  ) => {
+    const isControlled = checked !== undefined;
+    const classes = [style.root, className].join(' ');
+    return (
+      <label className={classes}>
+        <input
+          ref={ref}
+          type="checkbox"
+          {...(isControlled ? { checked } : { defaultChecked })}
+          onChange={onChange}
+          disabled={disabled}
+          {...rest}
+        />
+        <span></span>
+        <HelperText text={children} />
+      </label>
+    );
+  },
+);
+
+Switch.displayName = 'Switch';
+
+export default Switch;

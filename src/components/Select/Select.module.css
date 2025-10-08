@@ -12,7 +12,6 @@
   color: var(--color-darker);
   background-color: #fff;
   border: 1px solid var(--color-neutral);
-  border-radius: var(--radius-md);
 
   transition:
     border-color 0.2s ease,
@@ -26,37 +25,87 @@
   background-position: right 0.75rem center;
   background-size: 1rem;
 
-  &:hover {
-    border-color: var(--color-dark);
-  }
-
-  &:focus {
-    outline: none;
-    border-color: var(--color);
-    box-shadow: var(--focus-ring);
-  }
-
-  &:active {
-    background-color: var(--color-lighter);
-    border-color: var(--color-dark);
-  }
-
-  &:disabled {
-    color: var(--color-neutral);
-    background-color: var(--color-lighter);
-    border-color: var(--color-light);
-    cursor: not-allowed;
-    background-image: none;
-  }
-
-  &.error {
-    border-color: var(--color-error);
-    background-color: #fff;
-    color: var(--color-error);
+  &.outlined {
+    border-radius: var(--radius-sm);
+    &:hover {
+      border-color: var(--color-dark);
+    }
 
     &:focus {
-      border-color: var(--color-error);
-      box-shadow: 0 0 0 2px rgba(210, 0, 28, 0.3);
+      outline: none;
+      border-color: var(--color);
+      box-shadow: var(--focus-ring);
+    }
+
+    &:active {
+      background-color: var(--color-lighter);
+      border-color: var(--color-dark);
+    }
+
+    &:disabled {
+      color: var(--color-neutral);
+      background-color: var(--color-lighter);
+      border-color: var(--color-light);
+      cursor: not-allowed;
+      background-image: none;
     }
   }
+
+  &.contained {
+    border-radius: var(--radius-sm);
+    background-color: var(--color-light);
+    color: var(--color-darker);
+    border-color: var(--color);
+
+    &:hover {
+      border-color: var(--color-dark);
+    }
+
+    &:focus {
+      border-color: var(--color-dark);
+      box-shadow: var(--focus-ring);
+    }
+
+    &:active {
+      border-color: var(--color-darker);
+    }
+
+    &:disabled {
+      background-color: var(--color-light);
+      border-color: var(--color-light);
+      color: #fff;
+    }
+  }
+
+  &.text {
+    background-color: transparent;
+    color: var(--color);
+    border-color: transparent;
+    border-bottom-color: var(--color);
+
+    &:hover {
+      border-bottom-color: var(--color-darker);
+    }
+
+    &:active {
+      border-color: transparent;
+      background-color: var(--color-lighter);
+    }
+
+    &:focus {
+      box-shadow: var(--focus-ring);
+      border-color: transparent;
+    }
+
+    &:disabled {
+      background-color: transparent;
+      border-bottom-color: var(--color-light);
+      color: var(--color-light);
+    }
+  }
+}
+
+.root:focus-visible {
+  box-shadow: none;
+  outline: none;
 }

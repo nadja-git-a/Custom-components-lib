@@ -7,7 +7,6 @@ const meta: Meta<typeof TextField> = {
   component: TextField,
   argTypes: {
     error: { control: 'boolean' },
-    helperText: { control: 'text' },
     disabled: { control: 'boolean' },
     type: {
       options: ['text', 'email', 'password', 'number', 'search'],
@@ -17,9 +16,10 @@ const meta: Meta<typeof TextField> = {
     onChange: { action: 'change' },
     onFocus: { action: 'focus' },
     onBlur: { action: 'blur' },
+    variant: { options: ['text', 'contained', 'outlined'], control: { type: 'radio' } },
   },
   args: {
-    helperText: 'Helper text',
+    children: 'Helper text',
     error: false,
     disabled: false,
     type: 'text',

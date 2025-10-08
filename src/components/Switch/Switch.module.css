@@ -9,6 +9,7 @@
   cursor: pointer;
   user-select: none;
   line-height: 1;
+  color: var(--color);
 
   & > input[type='checkbox'] {
     position: absolute;

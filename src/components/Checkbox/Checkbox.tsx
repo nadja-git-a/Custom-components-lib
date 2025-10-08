@@ -1,7 +1,8 @@
-import { InputHTMLAttributes, ReactNode, useId, useRef, useState } from 'react';
+import { forwardRef, InputHTMLAttributes, ReactNode, useId } from 'react';
 import React from 'react';
 
 import style from './Checkbox.module.css';
+import HelperText from '../HelperText/HelperText';
 
 interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
   checked?: boolean;
@@ -10,45 +11,34 @@ interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'typ
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export default function Checkbox({
-  checked,
-  defaultChecked = false,
-  className,
-  children,
-  onChange,
-  id,
-  ...rest
-}: CheckboxProps) {
-  const [clickChecked, setClickChecked] = useState(defaultChecked);
+const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
+  ({ checked, defaultChecked = false, className, children, onChange, id, ...rest }, ref) => {
+    const autoId = useId();
+    const inputId = id ?? autoId;
+    const isControlled = checked !== undefined;
 
-  const isControlledRef = useRef(checked !== undefined);
-  const isControlled = isControlledRef.current;
+    const classes = [style.root, className].filter(Boolean).join(' ');
 
-  const autoId = useId();
-  const inputId = id ?? autoId;
+    return (
+      <>
+        <label className={classes} htmlFor={inputId}>
+          <input
+            ref={ref}
+            id={inputId}
+            type="checkbox"
+            {...(isControlled ? { checked } : { defaultChecked })}
+            onChange={onChange}
+            className={style.input}
+            {...rest}
+          />
+          <span className={style.label} aria-hidden="true" />
+          {children && <HelperText text={children} />}
+        </label>
+      </>
+    );
+  },
+);
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    if (!isControlled) {
-      setClickChecked(e.target.checked);
-    }
-    onChange?.(e);
-  }
+Checkbox.displayName = 'Checkbox';
 
-  const finalChecked = isControlled ? checked : clickChecked;
-
-  const classes = [style.root, className].filter(Boolean).join(' ');
-
-  return (
-    <label className={classes} htmlFor={inputId}>
-      <input
-        id={inputId}
-        type="checkbox"
-        checked={finalChecked}
-        onChange={handleChange}
-        className={style.input}
-        {...rest}
-      />
-      {children && <span className={style.label}>{children}</span>}
-    </label>
-  );
-}
+export default Checkbox;

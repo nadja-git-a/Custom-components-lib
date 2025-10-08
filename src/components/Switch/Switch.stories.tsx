@@ -10,7 +10,7 @@ export default {
     className: { control: false },
   },
   args: {
-    checked: false,
+    children: 'Lalalal',
     disabled: false,
   },
 };

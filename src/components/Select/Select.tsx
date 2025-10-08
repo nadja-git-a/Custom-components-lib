@@ -1,26 +1,40 @@
-import { SelectHTMLAttributes } from 'react';
+import { forwardRef, ReactNode, SelectHTMLAttributes } from 'react';
 
 import style from './Select.module.css';
+import HelperText from '../HelperText/HelperText';
+
+type Variant = 'text' | 'contained' | 'outlined';
 
 interface Options {
   label: string;
   value: string | number;
 }
 
-interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
+interface SelectProps extends Omit<SelectHTMLAttributes<HTMLSelectElement>, 'children'> {
   options: Options[];
+  variant?: Variant;
+  children?: ReactNode;
 }
 
-export default function Select({ className, options, ...rest }: SelectProps) {
-  const classes = [style.root, className].filter(Boolean).join(' ');
+const Select = forwardRef<HTMLSelectElement, SelectProps>(
+  ({ className, options, variant = 'text', children, ...rest }, ref) => {
+    const classes = [style.root, style[variant], className].filter(Boolean).join(' ');
 
-  return (
-    <select className={classes} {...rest}>
-      {options.map((option) => (
-        <option key={option.value} value={option.value}>
-          {option.label}
-        </option>
-      ))}
-    </select>
-  );
-}
+    return (
+      <div>
+        <HelperText text={children}></HelperText>
+        <select ref={ref} className={classes} {...rest}>
+          {options.map((option) => (
+            <option key={String(option.value)} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </div>
+    );
+  },
+);
+
+Select.displayName = 'Select';
+
+export default Select;

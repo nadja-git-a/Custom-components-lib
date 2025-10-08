@@ -11,16 +11,6 @@
     background-color 0.3s ease,
     transform 0.1s ease;
 
-  &:hover:not(:disabled):not([aria-invalid='true']) {
-    border-color: var(--color-dark);
-    background-color: color-mix(in srgb, var(--color-lighter) 35%, transparent);
-  }
-
-  &:focus-visible {
-    border-color: var(--color);
-    box-shadow: var(--focus-ring);
-  }
-
   &:disabled {
     opacity: 0.6;
     background-color: #e3e3e3;
@@ -30,13 +20,100 @@
   &[aria-invalid='true'] {
     border-color: var(--color-error);
   }
-}
 
-.helper {
-  display: block;
-  font-size: 13px;
-  line-height: 1.4;
-  color: var(--color);
+  &.text {
+    background-color: transparent;
+    color: var(--color);
+    border-color: transparent;
+    border-bottom-color: var(--color);
+
+    &:hover {
+      border-color: transparent;
+      border-bottom-color: var(--color);
+      background-color: var(--color-lighter);
+    }
+
+    &:focus {
+      border-color: transparent;
+      background-color: var(--color-lighter);
+      border-bottom-color: var(--color-dark);
+    }
+
+    &:active {
+      border-color: transparent;
+      background-color: var(--color-lighter);
+      background-color: var(--color-darker);
+    }
+
+    &:disabled {
+      background-color: var(--color-light);
+      border-color: var(--color-light);
+      color: #fff;
+    }
+  }
+
+  &.contained {
+    border-color: transparent;
+    background-color: var(--color-light);
+    color: #fff;
+
+    &:hover {
+      border-color: transparent;
+      background-color: var(--color-light);
+    }
+
+    &:focus {
+      border-color: transparent;
+      background-color: var(--color-light);
+      box-shadow: var(--focus-ring);
+    }
+
+    &:focus-visible {
+      border-color: transparent;
+    }
+
+    &:active {
+      border-color: transparent;
+      background-color: var(--color-light);
+    }
+
+    &:disabled {
+      border-color: transparent;
+      color: var(--color-light);
+    }
+  }
+
+  &.outlined {
+    background-color: transparent;
+    color: var(--color);
+    border-color: var(--color);
+
+    &:hover {
+      background-color: var(--color-lighter);
+      border-color: var(--color-dark);
+    }
+
+    &:focus {
+      background-color: var(--color-lighter);
+      border-color: var(--color-dark);
+      box-shadow: var(--focus-ring);
+    }
+
+    &:focus-visible {
+      border-color: var(--color);
+      box-shadow: var(--focus-ring);
+    }
+
+    &:active {
+      background-color: var(--color-light);
+    }
+
+    &:disabled {
+      background-color: transparent;
+      border-color: var(--color-light);
+      color: var(--color-light);
+    }
+  }
 }
 
 .error {

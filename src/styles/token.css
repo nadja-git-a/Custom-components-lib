@@ -17,3 +17,15 @@
   --font: sans-serif;
   font-family: var(--font);
 }
+
+.lib-components-container {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  border: solid var(--color);
+
+  background-color: white;
+  padding: 30px;
+}

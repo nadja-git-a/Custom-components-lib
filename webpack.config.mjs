@@ -3,8 +3,8 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
-import webpack from 'webpack';
 import { fileURLToPath } from 'url';
+import process from 'process';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -20,22 +20,38 @@ export default {
     publicPath: '/',
   },
   devtool: isProduction ? 'source-map' : 'eval-cheap-module-source-map',
-  resolve: { extensions: ['.ts', '.tsx', '.js', '.jsx'] },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
+  },
 
   module: {
     rules: [
-      { test: /\.tsx?$/, use: 'ts-loader', exclude: /node_modules/ },
+      {
+        test: /\.tsx?$/,
+        use: {
+          loader: 'ts-loader',
+          options: {
+            transpileOnly: true,
+            compilerOptions: {
+              jsx: 'react-jsx',
+            },
+          },
+        },
+        exclude: /node_modules/,
+      },
       {
         test: /\.module\.css$/i,
         use: [
-          MiniCssExtractPlugin.loader,
+          isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
           {
             loader: 'css-loader',
             options: {
+              esModule: true,
               modules: {
                 localIdentName: isProduction
                   ? '[hash:base64:8]'
                   : '[name]__[local]--[hash:base64:5]',
+                namedExport: false,
               },
               importLoaders: 1,
             },
@@ -45,7 +61,7 @@ export default {
       {
         test: /\.css$/i,
         exclude: /\.module\.css$/i,
-        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+        use: [isProduction ? MiniCssExtractPlugin.loader : 'style-loader', 'css-loader'],
       },
       {
         test: /\.(png|jpe?g|gif|svg|ico)$/i,
@@ -61,13 +77,16 @@ export default {
   },
 
   plugins: [
-    new HtmlWebpackPlugin({ template: './public/index.html' }),
-    new MiniCssExtractPlugin({
-      filename: isProduction ? '[name].[contenthash].css' : '[name].css',
+    new HtmlWebpackPlugin({
+      template: './public/index.html',
     }),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-    }),
+    ...(isProduction
+      ? [
+          new MiniCssExtractPlugin({
+            filename: '[name].[contenthash].css',
+          }),
+        ]
+      : []),
   ],
 
   optimization: isProduction

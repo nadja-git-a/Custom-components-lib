@@ -2,7 +2,7 @@ import {
   type DialogHTMLAttributes,
   forwardRef,
   type MouseEvent,
-  type ReactNode,
+  type PropsWithChildren,
   useEffect,
   useRef,
 } from 'react';
@@ -10,14 +10,15 @@ import {
 import style from './Modal.module.css';
 import Button from '../Button/Button';
 
-type ModalProps = Omit<DialogHTMLAttributes<HTMLDialogElement>, 'onClose' | 'open'> & {
+interface ModalProps
+  extends Omit<DialogHTMLAttributes<HTMLDialogElement>, 'onClose' | 'open'>,
+    PropsWithChildren {
   open: boolean;
   onClose: () => void;
-  children: ReactNode;
   closeOnBackdropClick?: boolean;
   closeOnEscape?: boolean;
   showCloseButton?: boolean;
-};
+}
 
 const Modal = forwardRef<HTMLDialogElement, ModalProps>(
   (

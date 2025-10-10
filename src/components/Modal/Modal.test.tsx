@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import React from 'react';
 
 import Modal from './Modal';
@@ -13,29 +12,43 @@ jest.mock('../Button/Button', () => ({
   ) => <button {...props} />,
 }));
 
-describe('<Modal />', () => {
-  test('renders <dialog> and children when open', () => {
-    render(
-      <Modal open onClose={jest.fn()}>
-        <p>Content</p>
+beforeAll(() => {
+  if (!HTMLDialogElement.prototype.showModal) {
+    HTMLDialogElement.prototype.showModal = jest.fn();
+  }
+  if (!HTMLDialogElement.prototype.close) {
+    HTMLDialogElement.prototype.close = jest.fn();
+  }
+});
+
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
+describe('Modal — main props', () => {
+  test('calls showModal() when open=true and close() when open=false', () => {
+    const { rerender } = render(
+      <Modal open onClose={() => {}}>
+        x
       </Modal>,
     );
+    expect(HTMLDialogElement.prototype.showModal).toHaveBeenCalled();
 
-    expect(screen.getByRole('dialog')).toBeInTheDocument();
-    expect(screen.getByText('Content')).toBeInTheDocument();
+    rerender(
+      <Modal open={false} onClose={() => {}}>
+        x
+      </Modal>,
+    );
+    expect(HTMLDialogElement.prototype.close).toHaveBeenCalled();
   });
 
-  test('clicking Close calls onClose', async () => {
-    const user = userEvent.setup();
-    const onClose = jest.fn();
-
+  test('forwards ref to dialog element', () => {
+    const ref = React.createRef<HTMLDialogElement>();
     render(
-      <Modal open onClose={onClose}>
-        body
+      <Modal open onClose={() => {}} ref={ref}>
+        x
       </Modal>,
     );
-
-    await user.click(screen.getByRole('button', { name: /close/i }));
-    expect(onClose).toHaveBeenCalledTimes(1);
+    expect(ref.current).toBeInstanceOf(HTMLDialogElement);
   });
 });

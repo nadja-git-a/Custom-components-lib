@@ -1,14 +1,13 @@
-import { type ButtonHTMLAttributes, forwardRef, type ReactNode } from 'react';
+import { type ButtonHTMLAttributes, forwardRef, PropsWithChildren, type ReactNode } from 'react';
 
 import style from './Button.module.css';
 
 type ButtonVariant = 'text' | 'contained' | 'outlined';
 type ButtonSize = 'small' | 'medium' | 'large';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, PropsWithChildren {
   variant?: ButtonVariant;
   size?: ButtonSize;
-  children?: ReactNode;
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(

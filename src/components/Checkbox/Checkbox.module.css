@@ -1,10 +1,10 @@
 .root {
-  display: ruby;
-  align-items: center;
-  gap: 0.5rem;
+  display: flex;
+  flex-direction: row-reverse;
+  width: max-content;
+
   cursor: pointer;
   font: inherit;
-  color: var(--color-darker);
   user-select: none;
 
   &:hover .label::before {
@@ -13,6 +13,69 @@
 
   &:active .label::before {
     background: var(--color-lighter);
+  }
+
+  &:has(.input:focus-visible) .label::before {
+    border-color: var(--color);
+    box-shadow: var(--focus-ring);
+  }
+
+  &:has(.input:checked) .label::before {
+    background: var(--color);
+    border-color: var(--color);
+  }
+
+  &:has(.input:checked) .label::after {
+    opacity: 1;
+  }
+
+  &:has(.input:indeterminate) .label::before {
+    background: var(--color);
+    border-color: var(--color);
+  }
+
+  &:has(.input:indeterminate) .label::after {
+    left: 4px;
+    top: 8px;
+    width: 10px;
+    height: 2px;
+    border: none;
+    background: #fff;
+    opacity: 1;
+  }
+
+  &:has(.input:disabled) .label {
+    color: var(--color-neutral);
+    cursor: not-allowed;
+  }
+
+  &:has(.input:disabled) .label::before {
+    background: var(--color-lighter);
+    border-color: var(--color-light);
+    box-shadow: none;
+  }
+
+  &:has(.input[aria-invalid='true']) .label {
+    color: var(--color-error);
+  }
+
+  &:has(.input[aria-invalid='true']) .label::before {
+    border-color: var(--color-error);
+    background: rgba(210, 0, 28, 0.05);
+    box-shadow: 0 0 0 2px rgba(210, 0, 28, 0.15);
+  }
+
+  &:has(.input[aria-invalid='true']:checked) .label::before {
+    background: var(--color-error);
+    border-color: var(--color-error);
+  }
+
+  &:has(.input[aria-invalid='true']:checked) .label::after {
+    opacity: 1;
+  }
+
+  &:has(.input[aria-invalid='true']:focus-visible) .label::before {
+    box-shadow: 0 0 0 2px rgba(210, 0, 28, 0.3);
   }
 }
 
@@ -23,57 +86,13 @@
   height: 1px;
   margin: 0;
   pointer-events: none;
-
-  &:focus-visible + .label::before {
-    border-color: var(--color);
-    box-shadow: var(--focus-ring);
-  }
-
-  &:checked + .label::before {
-    background: var(--color);
-    border-color: var(--color);
-  }
-  &:checked + .label::after {
-    opacity: 1;
-  }
-
-  &:indeterminate + .label::before {
-    background: var(--color);
-    border-color: var(--color);
-  }
-  &:indeterminate + .label::after {
-    left: 4px;
-    top: 8px;
-    width: 10px;
-    height: 2px;
-    border: none;
-    background: #fff;
-    opacity: 1;
-  }
-
-  &:disabled + .label {
-    color: var(--color-neutral);
-    cursor: not-allowed;
-  }
-  &:disabled + .label::before {
-    background: var(--color-lighter);
-    border-color: var(--color-light);
-    box-shadow: none;
-  }
-
-  &[aria-invalid='true'] + .label::before {
-    border-color: var(--color-error);
-    box-shadow: 0 0 0 2px rgba(210, 0, 28, 0.15);
-  }
-  &[aria-invalid='true']:focus-visible + .label::before {
-    box-shadow: 0 0 0 2px rgba(210, 0, 28, 0.3);
-  }
 }
 
 .label {
   position: relative;
   padding-left: 26px;
   line-height: 20px;
+  color: var(--color);
 
   &::before {
     content: '';

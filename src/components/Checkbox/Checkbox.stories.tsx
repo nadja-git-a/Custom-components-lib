@@ -8,7 +8,8 @@ export default {
     onChange: { action: 'changed' },
   },
   args: {
-    children: 'Accept terms',
+    label: 'Accept terms',
+    helperText: 'Helper text',
   },
 };
 

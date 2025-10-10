@@ -2,45 +2,68 @@ import {
   type ChangeEventHandler,
   forwardRef,
   type InputHTMLAttributes,
-  type ReactNode,
+  PropsWithChildren,
+  useId,
 } from 'react';
 
 import style from './Switch.module.css';
 import HelperText from '../HelperText/HelperText';
+import Label from '../Label/Label';
 
 interface SwitchProps
-  extends Omit<
-    InputHTMLAttributes<HTMLInputElement>,
-    'type' | 'checked' | 'onChange' | 'disabled'
-  > {
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'checked' | 'onChange' | 'disabled'>,
+    PropsWithChildren {
   checked?: boolean;
   defaultChecked?: boolean;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   disabled?: boolean;
-  children?: ReactNode;
   className?: string;
+  label?: string;
+  helperText?: string;
 }
 
 const Switch = forwardRef<HTMLInputElement, SwitchProps>(
   (
-    { checked, defaultChecked = false, onChange, disabled = false, className, children, ...rest },
+    {
+      checked,
+      label,
+      defaultChecked = false,
+      onChange,
+      disabled = false,
+      className,
+      id,
+      helperText,
+      ...rest
+    },
     ref,
   ) => {
+    const autoId = useId();
+    const inputId = id ?? autoId;
     const isControlled = checked !== undefined;
+
     const classes = [style.root, className].join(' ');
     return (
-      <label className={classes}>
-        <input
-          ref={ref}
-          type="checkbox"
-          {...(isControlled ? { checked } : { defaultChecked })}
-          onChange={onChange}
-          disabled={disabled}
-          {...rest}
-        />
-        <span></span>
-        <HelperText text={children} />
-      </label>
+      <div>
+        <Label
+          htmlFor={inputId}
+          aria-disabled={disabled ? 'true' : undefined}
+          text={label}
+          className={classes}
+        >
+          <input
+            className={style.root}
+            ref={ref}
+            id={inputId}
+            type="checkbox"
+            {...(isControlled ? { checked } : { defaultChecked })}
+            onChange={onChange}
+            disabled={disabled}
+            {...rest}
+          />
+          <span></span>
+        </Label>
+        <HelperText data-disabled={disabled ? 'true' : undefined} text={helperText} />
+      </div>
     );
   },
 );

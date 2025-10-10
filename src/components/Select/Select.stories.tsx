@@ -9,7 +9,8 @@ export default {
     variant: { options: ['text', 'contained', 'outlined'], control: { type: 'radio' } },
   },
   args: {
-    children: 'Labubu color',
+    label: 'Accept terms',
+    helperText: 'Helper text',
     options: [
       { label: 'pink', value: 'color-pink' },
       { label: 'blue', value: 'color-blue' },

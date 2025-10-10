@@ -10,7 +10,8 @@ export default {
     className: { control: false },
   },
   args: {
-    children: 'Lalalal',
+    label: 'Accept terms',
+    helperText: 'Helper text',
     disabled: false,
   },
 };

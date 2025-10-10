@@ -19,7 +19,8 @@ const meta: Meta<typeof TextField> = {
     variant: { options: ['text', 'contained', 'outlined'], control: { type: 'radio' } },
   },
   args: {
-    children: 'Helper text',
+    label: 'Accept terms',
+    helperText: 'Helper text',
     error: false,
     disabled: false,
     type: 'text',

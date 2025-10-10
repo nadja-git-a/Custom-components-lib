@@ -114,13 +114,34 @@
       color: var(--color-light);
     }
   }
-}
 
-.error {
-  display: block;
-  font-size: 12px;
-  line-height: 1.4;
-  color: var(--color-error);
+  &.error {
+    display: block;
+    font-size: 12px;
+    line-height: 1.4;
+    background-color: var(--color-base);
+    color: var(--color-error);
+    border-color: var(--color-error);
+    transition:
+      border-color 0.15s ease,
+      box-shadow 0.15s ease;
+
+    &:hover {
+      border-color: color-mix(in srgb, var(--color-error) 85%, black 10%);
+      background-color: var(--color-base);
+    }
+
+    &:focus,
+    &:focus-visible {
+      outline: none;
+      border-color: var(--color-error);
+      box-shadow: 0 0 0 2px rgba(210, 0, 28, 0.3);
+    }
+
+    &:active {
+      background-color: var(--color-base);
+    }
+  }
 }
 
 div {

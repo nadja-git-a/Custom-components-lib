@@ -1,0 +1,30 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 4px;
+
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color);
+  line-height: 1.4;
+
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.15s ease-in-out;
+
+  &:hover {
+    color: var(--color-dark);
+  }
+
+  &:disabled,
+  &[aria-disabled='true'] {
+    color: var(--color-light);
+    cursor: not-allowed;
+  }
+
+  &.error,
+  &[data-error='true'] {
+    color: var(--color-error);
+  }
+}
